@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Project {
   id: string;
@@ -16,6 +16,19 @@ export default function ProjectsPage() {
   const [showCreate, setShowCreate] = useState(false);
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
+  const [loaded, setLoaded] = useState(false);
+
+  // Load from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("reattend_projects");
+    if (saved) try { setProjects(JSON.parse(saved)); } catch { /* ignore */ }
+    setLoaded(true);
+  }, []);
+
+  // Save to localStorage
+  useEffect(() => {
+    if (loaded) localStorage.setItem("reattend_projects", JSON.stringify(projects));
+  }, [projects, loaded]);
 
   function createProject() {
     if (!name.trim()) return;

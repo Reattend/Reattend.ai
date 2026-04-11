@@ -25,11 +25,17 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({ content, source: source || "note", metadata: { user: email } }),
     });
 
+    const text = await resp.text();
     if (!resp.ok) {
-      return NextResponse.json({ error: "Failed to save memory" }, { status: 500 });
+      console.error("Rabbit remember failed:", resp.status, text);
+      return NextResponse.json({ error: `Memory service error: ${text.slice(0, 200)}` }, { status: 500 });
     }
 
-    return NextResponse.json(await resp.json());
+    try {
+      return NextResponse.json(JSON.parse(text));
+    } catch {
+      return NextResponse.json({ error: "Invalid response from memory service" }, { status: 500 });
+    }
   } catch (error) {
     console.error("Rabbit API error:", error);
     return NextResponse.json({ error: "Could not reach memory service" }, { status: 502 });
