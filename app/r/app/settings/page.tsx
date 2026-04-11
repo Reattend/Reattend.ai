@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Tab = "profile" | "workspace" | "preferences" | "agent-logs";
 
@@ -86,30 +86,7 @@ export default function SettingsPage() {
       )}
 
       {/* Agent Logs */}
-      {tab === "agent-logs" && (
-        <div className="border border-gray-200 rounded-xl p-5">
-          <h3 className="text-sm font-semibold text-[#111827] mb-2">Agent Logs</h3>
-          <p className="text-xs text-gray-500 mb-4">See what Rabbit did behind the scenes for each memory.</p>
-
-          <div className="space-y-3">
-            <AgentLog
-              time="2 min ago"
-              action="Processed memory"
-              steps={[
-                { signal: "TRIAGE", result: "Type: meeting", latency: "240ms" },
-                { signal: "EXTRACT", result: "3 people, 2 decisions", latency: "450ms" },
-                { signal: "SUMMARIZE", result: "Launch delayed to March 15...", latency: "380ms" },
-                { signal: "SENTIMENT", result: "tense", latency: "240ms" },
-                { signal: "IMPORTANCE", result: "4/5", latency: "300ms" },
-                { signal: "LINK", result: "2 connections found", latency: "500ms" },
-              ]}
-            />
-            <div className="text-center py-6 text-xs text-gray-400">
-              Agent logs will appear here as you add memories and ask questions.
-            </div>
-          </div>
-        </div>
-      )}
+      {tab === "agent-logs" && <AgentLogsTab />}
     </div>
   );
 }
@@ -141,27 +118,66 @@ function Toggle({ label, desc }: { label: string; desc: string }) {
   );
 }
 
-function AgentLog({ time, action, steps }: {
-  time: string;
-  action: string;
-  steps: { signal: string; result: string; latency: string }[];
-}) {
+function AgentLogsTab() {
+  const [logs, setLogs] = useState<Record<string, unknown>[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("reattend_agent_logs");
+    if (saved) try { setLogs(JSON.parse(saved)); } catch { /* ignore */ }
+  }, []);
+
+  function timeAgo(iso: string) {
+    const diff = (Date.now() - new Date(iso).getTime()) / 1000;
+    if (diff < 60) return "just now";
+    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+    return `${Math.floor(diff / 86400)}d ago`;
+  }
+
   return (
-    <div className="border border-gray-200 rounded-lg p-4">
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-sm font-medium text-[#111827]">{action}</span>
-        <span className="text-xs text-gray-400">{time}</span>
-      </div>
-      <div className="space-y-1.5">
-        {steps.map(s => (
-          <div key={s.signal} className="flex items-center gap-3 text-xs">
-            <span className="text-green-600">&#x2713;</span>
-            <span className="font-mono text-gray-500 w-24">{s.signal}</span>
-            <span className="text-[#111827] flex-1">{s.result}</span>
-            <span className="text-gray-400 font-mono">{s.latency}</span>
-          </div>
-        ))}
-      </div>
+    <div className="border border-gray-200 rounded-xl p-5">
+      <h3 className="text-sm font-semibold text-[#111827] mb-2">Agent Logs</h3>
+      <p className="text-xs text-gray-500 mb-4">Real processing logs from when you save memories.</p>
+      {logs.length === 0 ? (
+        <div className="text-center py-8 text-xs text-gray-400">
+          No agent logs yet. Add a memory to see what Rabbit does behind the scenes.
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {logs.map((log, i) => {
+            const ext = (log.extraction || {}) as Record<string, string[]>;
+            return (
+              <div key={i} className="border border-gray-200 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-medium text-[#111827]">{String(log.action || "Processed")}</span>
+                  <span className="text-xs text-gray-400">{timeAgo(String(log.time || ""))}</span>
+                </div>
+                <div className="space-y-1.5 text-xs">
+                  <LogRow signal="TRIAGE" result={`Type: ${String(log.triage_type || "unknown")}`} />
+                  <LogRow signal="EXTRACT" result={`${ext.people?.length || 0} people, ${ext.decisions?.length || 0} decisions`} />
+                  <LogRow signal="SUMMARIZE" result={String(log.summary || "").slice(0, 60) + "..."} />
+                  <LogRow signal="SENTIMENT" result={String(log.sentiment || "neutral")} />
+                  <LogRow signal="IMPORTANCE" result={`${log.importance}/5`} />
+                  <LogRow signal="LINK" result={`${(log.links as unknown[])?.length || 0} connections`} />
+                </div>
+                <p className="text-[10px] text-gray-400 mt-2">
+                  Total: {Number(log.latency_ms || 0).toLocaleString()}ms
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function LogRow({ signal, result }: { signal: string; result: string }) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="text-green-600">&#x2713;</span>
+      <span className="font-mono text-gray-500 w-24">{signal}</span>
+      <span className="text-[#111827] flex-1">{result}</span>
     </div>
   );
 }
