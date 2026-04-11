@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -55,10 +56,11 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex-1 flex items-center justify-center px-6">
+    <main className="flex-1 flex items-center justify-center px-6 bg-[#eee9f4]">
       <div className="w-full max-w-sm">
-        <Link href="/" className="text-xl font-bold tracking-tight block text-center mb-10 text-[#1d1d1d]">
-          rabbit
+        <Link href="/" className="flex items-center justify-center gap-2 mb-10">
+          <Image src="/logo.png" alt="Rabbit" width={28} height={28} />
+          <span className="text-lg font-bold tracking-tight text-[#1d1d1d]">rabbit</span>
         </Link>
 
         {step === "email" ? (
@@ -73,13 +75,13 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && email && sendOTP()}
-              className="w-full bg-[#f0eaf5] border border-[#c2a6cf] rounded-xl px-4 py-3 text-[#1d1d1d] placeholder-[#a89bb5] focus:outline-none focus:border-[#8069af] mb-4"
+              className="w-full bg-white border border-[#d4cade] rounded-xl px-4 py-3 text-[#1d1d1d] placeholder-[#a89bb5] focus:outline-none focus:border-[#8069af] mb-4 text-sm"
               autoFocus
             />
             <button
               onClick={sendOTP}
               disabled={!email || loading}
-              className="w-full bg-[#1d1d1d] text-white py-3 rounded-xl font-medium hover:bg-[#333] transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#1d1d1d] text-white py-3 rounded-xl font-medium hover:bg-[#333] transition disabled:opacity-50 disabled:cursor-not-allowed text-sm"
             >
               {loading ? "Sending..." : "Send verification code"}
             </button>
@@ -96,14 +98,14 @@ export default function LoginPage() {
               value={code}
               onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
               onKeyDown={(e) => e.key === "Enter" && code.length === 6 && verifyOTP()}
-              className="w-full bg-[#f0eaf5] border border-[#c2a6cf] rounded-xl px-4 py-3 text-[#1d1d1d] text-center text-2xl tracking-[0.5em] font-mono placeholder-[#a89bb5] focus:outline-none focus:border-[#8069af] mb-4"
+              className="w-full bg-white border border-[#d4cade] rounded-xl px-4 py-3 text-[#1d1d1d] text-center text-2xl tracking-[0.5em] font-mono placeholder-[#a89bb5] focus:outline-none focus:border-[#8069af] mb-4"
               autoFocus
               maxLength={6}
             />
             <button
               onClick={verifyOTP}
               disabled={code.length !== 6 || loading}
-              className="w-full bg-[#1d1d1d] text-white py-3 rounded-xl font-medium hover:bg-[#333] transition disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+              className="w-full bg-[#1d1d1d] text-white py-3 rounded-xl font-medium hover:bg-[#333] transition disabled:opacity-50 disabled:cursor-not-allowed mb-4 text-sm"
             >
               {loading ? "Verifying..." : "Verify"}
             </button>

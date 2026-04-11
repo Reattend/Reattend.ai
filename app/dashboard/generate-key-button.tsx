@@ -37,12 +37,12 @@ export default function GenerateKeyButton() {
     return (
       <div>
         <div className="flex items-center gap-2 mb-3">
-          <code className="flex-1 bg-[#1d1d1d] text-[#a8d8a8] rounded-xl px-4 py-3 font-mono text-sm break-all">
+          <code className="flex-1 bg-[#1d1d1d] text-green-400 rounded-xl px-4 py-3 font-mono text-[13px] break-all">
             {key}
           </code>
           <button
             onClick={copyKey}
-            className="shrink-0 bg-[#8069af] text-white hover:bg-[#6d5a96] px-4 py-3 rounded-xl text-sm font-medium transition"
+            className="shrink-0 bg-[#8069af] text-white hover:bg-[#6d5a96] px-5 py-3 rounded-xl text-sm font-medium transition"
           >
             {copied ? "Copied" : "Copy"}
           </button>
@@ -59,7 +59,7 @@ export default function GenerateKeyButton() {
       <button
         onClick={generateKey}
         disabled={loading}
-        className="bg-[#1d1d1d] text-white px-6 py-2.5 rounded-xl font-medium hover:bg-[#333] transition disabled:opacity-50 text-sm"
+        className="bg-[#1d1d1d] text-white px-5 py-2.5 rounded-xl font-medium hover:bg-[#333] transition disabled:opacity-50 text-sm"
       >
         {loading ? "Generating..." : "+ Create new secret key"}
       </button>

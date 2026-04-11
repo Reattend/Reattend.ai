@@ -1,34 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  --background: #e5def1;
-  --foreground: #1d1d1d;
+  --bg: #eee9f4;
+  --fg: #1d1d1d;
   --primary: #8069af;
-  --primary-light: #c2a6cf;
-  --surface: #f0eaf5;
-  --surface-dark: #d8cfe6;
-  --border: #c2a6cf;
+  --accent: #c2a6cf;
   --muted: #6b5f7a;
+  --surface: #f5f2f8;
+  --border: #d4cade;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
 }
 
 code, pre {
-  font-family: var(--font-mono), monospace;
+  font-family: var(--font-mono), 'SF Mono', 'Consolas', monospace;
 }
 
 ::selection {
-  background: var(--primary-light);
-  color: var(--foreground);
+  background: var(--accent);
+  color: var(--fg);
 }

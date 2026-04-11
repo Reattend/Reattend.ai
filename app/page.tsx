@@ -1,304 +1,258 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex-1">
+    <main className="flex-1 bg-[#eee9f4]">
       {/* Header */}
       <header className="px-6 py-5 flex items-center justify-between max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-10">
-          <Link href="/" className="text-xl font-bold tracking-tight text-[#1d1d1d]">
-            rabbit
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/logo.png" alt="Rabbit" width={28} height={28} />
+            <span className="text-lg font-bold tracking-tight text-[#1d1d1d]">rabbit</span>
           </Link>
-          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[#6b5f7a]">
-            <Link href="#research" className="hover:text-[#1d1d1d] transition">Research</Link>
-            <Link href="#product" className="hover:text-[#1d1d1d] transition">Product</Link>
-            <Link href="#enterprise" className="hover:text-[#1d1d1d] transition">Enterprise</Link>
-            <Link href="#developers" className="hover:text-[#1d1d1d] transition">Developers</Link>
-            <Link href="#individuals" className="hover:text-[#1d1d1d] transition">Individuals</Link>
-            <Link href="#future" className="hover:text-[#1d1d1d] transition">Future of Work</Link>
+          <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium text-[#6b5f7a]">
+            <Link href="/" className="text-[#1d1d1d]">Home</Link>
+            <Link href="/research" className="hover:text-[#1d1d1d] transition">Research</Link>
+            <Link href="/product" className="hover:text-[#1d1d1d] transition">Product</Link>
+            <Link href="/enterprise" className="hover:text-[#1d1d1d] transition">Enterprise</Link>
+            <Link href="/developers" className="hover:text-[#1d1d1d] transition">Developers</Link>
+            <Link href="/future" className="hover:text-[#1d1d1d] transition">Future of Work</Link>
           </nav>
         </div>
-        <div className="flex items-center gap-4 text-sm">
+        <div className="flex items-center gap-5 text-[13px]">
           <Link href="/login" className="text-[#6b5f7a] hover:text-[#1d1d1d] font-medium transition">
-            Documentation
+            API access
           </Link>
-          <Link href="/login" className="text-[#6b5f7a] hover:text-[#1d1d1d] font-medium transition">
-            Try Reattend
-          </Link>
-          <Link
-            href="/login"
-            className="bg-[#1d1d1d] text-white px-5 py-2.5 rounded-xl font-medium hover:bg-[#333] transition text-sm"
-          >
-            Get API
-          </Link>
+          <a href="https://reattend.ai" className="text-[#6b5f7a] hover:text-[#1d1d1d] font-medium transition">
+            Reattend
+          </a>
         </div>
       </header>
 
+      {/* Announcement */}
+      <div className="text-center py-3">
+        <span className="text-xs font-medium text-[#8069af] bg-[#8069af]/10 px-4 py-1.5 rounded-full">
+          v1.4 released
+        </span>
+      </div>
+
       {/* Hero */}
-      <section className="max-w-4xl mx-auto px-6 pt-32 pb-20 text-center">
-        <p className="text-sm font-medium text-[#8069af] tracking-wide uppercase mb-6">
-          Memory Infrastructure
-        </p>
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] text-[#1d1d1d]">
-          The API for memory
+      <section className="max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
+        <h1 className="text-5xl sm:text-6xl lg:text-[68px] font-bold tracking-tight leading-[1.06] text-[#1d1d1d]">
+          AI research and products that put organizational memory at the core
         </h1>
         <p className="mt-8 text-lg text-[#6b5f7a] max-w-2xl mx-auto leading-relaxed font-light">
-          A fine-tuned language model that extracts, links, and reasons over
-          organizational knowledge. Two operations: <strong className="font-medium text-[#1d1d1d]">remember</strong> and{" "}
-          <strong className="font-medium text-[#1d1d1d]">ask</strong>.
-          On-premise capable. Privacy-first. Your data never leaves your control.
+          We build the intelligence layer that helps organizations remember every decision,
+          every context, every relationship. So nothing gets lost.
         </p>
-        <div className="mt-10 flex gap-4 justify-center">
+        <div className="mt-10 flex gap-4 justify-center flex-wrap">
+          <Link
+            href="/future"
+            className="bg-[#8069af] text-white px-7 py-3.5 rounded-xl font-medium hover:bg-[#6d5a96] transition"
+          >
+            Read our vision
+          </Link>
           <Link
             href="/login"
             className="bg-[#1d1d1d] text-white px-7 py-3.5 rounded-xl font-medium hover:bg-[#333] transition"
           >
-            Start building
-          </Link>
-          <Link
-            href="/login"
-            className="bg-[#c2a6cf] text-[#1d1d1d] px-7 py-3.5 rounded-xl font-medium hover:bg-[#b396c2] transition"
-          >
-            Read documentation
+            Get API access
           </Link>
         </div>
       </section>
 
-      {/* Code */}
-      <section className="max-w-3xl mx-auto px-6 pb-28">
-        <div className="bg-[#1d1d1d] rounded-2xl overflow-hidden shadow-xl">
-          <div className="flex items-center gap-2 px-5 py-3.5 border-b border-[#333]">
-            <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-            <div className="w-3 h-3 rounded-full bg-[#28c840]" />
-            <span className="ml-3 text-xs text-[#888] font-mono">python</span>
-          </div>
-          <pre className="p-6 text-[13px] leading-7 overflow-x-auto font-mono">
-            <code>
-              <span className="text-[#c2a6cf]">from</span>{" "}
-              <span className="text-[#e5def1]">rabbit</span>{" "}
-              <span className="text-[#c2a6cf]">import</span>{" "}
-              <span className="text-white">Rabbit</span>{"\n\n"}
-              <span className="text-white">rab</span>{" = "}
-              <span className="text-white">Rabbit</span>
-              (<span className="text-[#a8d8a8]">&quot;rab_test_your_key&quot;</span>){"\n\n"}
-              <span className="text-[#888]"># Ingest any content. Rabbit extracts, classifies, links.</span>{"\n"}
-              <span className="text-white">rab</span>.remember({"\n"}
-              {"    "}<span className="text-[#a8d8a8]">&quot;Board approved Series A at $2M. Sequoia leads. Close by May.&quot;</span>,{"\n"}
-              {"    "}source=<span className="text-[#a8d8a8]">&quot;meeting&quot;</span>{"\n"}
-              ){"\n\n"}
-              <span className="text-[#888]"># Query across all memories. Cited, reasoned answers.</span>{"\n"}
-              <span className="text-white">answer</span>{" = "}
-              <span className="text-white">rab</span>.ask(<span className="text-[#a8d8a8]">&quot;What is our funding status?&quot;</span>){"\n"}
-              <span className="text-white">print</span>(answer.text)
-            </code>
-          </pre>
+      {/* Stats bar */}
+      <section className="max-w-4xl mx-auto px-6 pb-24">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <Stat number="97%" label="Accuracy" />
+          <Stat number="<500ms" label="Latency" />
+          <Stat number="12" label="Signals" />
+          <Stat number="82K+" label="Training examples" />
         </div>
       </section>
 
-      {/* What Rabbit Does */}
-      <section id="product" className="max-w-5xl mx-auto px-6 pb-28">
-        <p className="text-sm font-medium text-[#8069af] tracking-wide uppercase mb-4 text-center">
-          How it works
+      {/* The Problem */}
+      <section className="max-w-5xl mx-auto px-6 pb-24">
+        <p className="text-xs font-semibold text-[#8069af] tracking-widest uppercase mb-4 text-center">
+          The Problem
         </p>
         <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1d1d1d] mb-4">
-          12 specialized signals. One model.
+          Organizational amnesia is the silent cost no one tracks
+        </h2>
+        <p className="text-[#6b5f7a] text-center max-w-2xl mx-auto mb-14 font-light leading-relaxed">
+          Every day, decisions vanish into Slack threads. Meeting outcomes evaporate within hours.
+          When someone leaves, years of context leave with them. The problem is not that organizations
+          lack tools. They lack memory.
+        </p>
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-5 mb-14">
+          <ProblemStat number="$31.5B" label="Lost to knowledge silos annually" />
+          <ProblemStat number="5.3 hrs" label="Per week searching for known info" />
+          <ProblemStat number="70%" label="Of decisions get remade" />
+          <ProblemStat number="8+" label="Tools per team, unconnected" />
+        </div>
+        <div className="grid sm:grid-cols-3 gap-5">
+          <ProblemCard
+            title="Knowledge evaporates"
+            desc="Meeting decisions, client conversations, and project context disappear across disconnected tools."
+          />
+          <ProblemCard
+            title="Decisions get remade"
+            desc="Without accessible history, teams repeat analysis and reverse decisions that were already settled."
+          />
+          <ProblemCard
+            title="People leave, knowledge leaves"
+            desc="When someone exits, their relationships, context, and institutional knowledge walk out the door permanently."
+          />
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="max-w-5xl mx-auto px-6 pb-24">
+        <p className="text-xs font-semibold text-[#8069af] tracking-widest uppercase mb-4 text-center">
+          How It Works
+        </p>
+        <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1d1d1d] mb-4">
+          From scattered information to structured knowledge
         </h2>
         <p className="text-[#6b5f7a] text-center max-w-2xl mx-auto mb-14 font-light">
-          Rabbit is a fine-tuned 3.8B parameter model trained on 82,000+ memory-specific examples.
-          It runs 12 specialized tasks that no general-purpose LLM is optimized for.
+          Rabbit processes raw organizational activity and turns it into a living, queryable
+          knowledge graph that gets smarter over time.
         </p>
-        <div className="grid md:grid-cols-2 gap-5">
-          <SignalCard
-            title="Ingestion Pipeline"
-            subtitle="remember()"
-            description="Content enters Rabbit and is processed through 7 signals in sequence. What emerges is structured, summarized, scored, embedded, and linked to existing knowledge."
-            signals={["TRIAGE", "EXTRACT", "SUMMARIZE", "SENTIMENT", "IMPORTANCE", "EMBED", "LINK"]}
-          />
-          <SignalCard
-            title="Retrieval Pipeline"
-            subtitle="ask()"
-            description="Questions are classified, expanded, and matched against memories using hybrid search — vector similarity, keyword matching, graph traversal, and cross-encoder reranking."
-            signals={["INTENT", "EXPAND", "RETRIEVE", "RERANK", "GRAPH WALK", "ANSWER"]}
-          />
-          <SignalCard
-            title="Contradiction Detection"
-            subtitle="check()"
-            description="Feed Rabbit your current context. It compares against stored memories and surfaces contradictions, forgotten commitments, and critical context in real time."
-            signals={["AMBIENT"]}
-          />
-          <SignalCard
-            title="Self-Healing Knowledge Base"
-            subtitle="compile() + lint()"
-            description="Auto-generate wiki pages for any entity. Run health audits that find contradictions, stale decisions, and knowledge gaps across your entire memory."
-            signals={["COMPILE", "LINT"]}
-          />
+        <div className="grid sm:grid-cols-4 gap-4">
+          <PipelineStep step="1" title="Raw Input" desc="Meetings, emails, Slack, notes" />
+          <PipelineStep step="2" title="Rabbit processes" desc="Extract, classify, link, compile" />
+          <PipelineStep step="3" title="Knowledge Graph" desc="Entities, relationships, timelines" />
+          <PipelineStep step="4" title="Instant Recall" desc="Cited answers from verified facts" />
         </div>
       </section>
 
-      {/* Research */}
-      <section id="research" className="bg-[#f0eaf5] py-24">
-        <div className="max-w-5xl mx-auto px-6">
-          <p className="text-sm font-medium text-[#8069af] tracking-wide uppercase mb-4 text-center">
-            Research
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1d1d1d] mb-4">
-            Purpose-built for organizational memory
-          </h2>
-          <p className="text-[#6b5f7a] text-center max-w-2xl mx-auto mb-14 font-light">
-            General-purpose LLMs are designed for conversation. Rabbit is designed for memory —
-            extraction, classification, linking, and retrieval over structured organizational knowledge.
-          </p>
-          <div className="grid sm:grid-cols-3 gap-6">
-            <ResearchCard
-              number="82,314"
-              label="Training examples"
-              detail="Curated, quality-filtered examples across 12 signal types. Universe-based synthetic generation with real-world distributions."
-            />
-            <ResearchCard
-              number="3.8B"
-              label="Parameters"
-              detail="Fine-tuned Phi-3.5 Mini. Small enough for on-premise deployment. Specialized enough to outperform GPT-4 on memory tasks."
-            />
-            <ResearchCard
-              number="240ms"
-              label="Signal latency"
-              detail="Classification signals (intent, sentiment, importance) run in under 300ms. Faster than any API call to a general-purpose model."
-            />
-          </div>
+      {/* The Model */}
+      <section className="max-w-5xl mx-auto px-6 pb-24">
+        <p className="text-xs font-semibold text-[#8069af] tracking-widest uppercase mb-4 text-center">
+          The Model
+        </p>
+        <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1d1d1d] mb-4">
+          Twelve specialized signals. One architecture.
+        </h2>
+        <p className="text-[#6b5f7a] text-center max-w-2xl mx-auto mb-4 font-light">
+          Rabbit handles the entire memory lifecycle. From understanding what you are asking,
+          to extracting facts, to detecting contradictions, to giving you cited answers
+          grounded in your actual data.
+        </p>
+        <div className="text-center mb-14">
+          <Link href="/product" className="text-[#8069af] text-sm font-medium hover:underline">
+            Learn more about the model
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          <Signal name="Understand" tag="INTENT" />
+          <Signal name="Extract" tag="EXTRACT" />
+          <Signal name="Organize" tag="TRIAGE" />
+          <Signal name="Link" tag="LINK" />
+          <Signal name="Reason" tag="EXPAND" />
+          <Signal name="Compile" tag="COMPILE" />
+          <Signal name="Expand" tag="SUMMARIZE" />
+          <Signal name="Recall" tag="ANSWER" />
+          <Signal name="Sentiment" tag="SENTIMENT" />
+          <Signal name="Ambient" tag="AMBIENT" />
+          <Signal name="Multi-turn" tag="MULTITURN" />
+          <Signal name="Graceful limits" tag="DONTKNOW" />
         </div>
       </section>
 
-      {/* Enterprise */}
-      <section id="enterprise" className="py-24">
-        <div className="max-w-5xl mx-auto px-6">
-          <p className="text-sm font-medium text-[#8069af] tracking-wide uppercase mb-4 text-center">
-            Enterprise
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1d1d1d] mb-4">
-            Nothing leaves your firewall
-          </h2>
-          <p className="text-[#6b5f7a] text-center max-w-2xl mx-auto mb-14 font-light">
-            Rabbit runs entirely on your infrastructure. The model, the storage, the search —
-            everything operates within your network. No data is sent to external APIs.
-          </p>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
-            <FeatureCard title="On-Premise Deployment" desc="Single Docker container. GPU or CPU. Air-gapped capable. Your data stays on your servers." />
-            <FeatureCard title="Tenant Isolation" desc="Each API key gets isolated vector storage, metadata database, and knowledge graph. No cross-contamination." />
-            <FeatureCard title="Three Deployment Modes" desc="Hosted API, self-hosted on your cloud, or fully local on a laptop. Same SDK interface, zero code changes." />
-            <FeatureCard title="Audit Trail" desc="Every ingestion, every query, every answer — logged with timestamps. Full compliance readiness." />
-            <FeatureCard title="Custom Training" desc="Train Rabbit on your organization's data. Monthly retraining from user feedback. The model learns your domain." />
-            <FeatureCard title="Knowledge Graph" desc="Memories are automatically linked — same topic, contradicts, depends on, continuation of. Walk connections to find hidden context." />
-          </div>
+      {/* Industries */}
+      <section className="max-w-5xl mx-auto px-6 pb-24">
+        <p className="text-xs font-semibold text-[#8069af] tracking-widest uppercase mb-4 text-center">
+          Industries
+        </p>
+        <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1d1d1d] mb-4">
+          Memory intelligence across sectors
+        </h2>
+        <p className="text-[#6b5f7a] text-center max-w-2xl mx-auto mb-14 font-light">
+          Every industry has institutional knowledge worth preserving. Rabbit works out of the box.
+        </p>
+        <div className="grid sm:grid-cols-2 gap-5">
+          <IndustryCard title="Healthcare" desc="Patient history. Treatment decisions. Compliance. Track treatment plans and outcomes across departments. HIPAA-ready on-premise deployment." />
+          <IndustryCard title="Legal" desc="Case history. Precedents. Client matters. Every case brief and client conversation linked and searchable. Full data sovereignty." />
+          <IndustryCard title="Financial Services" desc="Deal history. Client relationships. Compliance trails. Complete audit trail of every interaction and decision across teams." />
+          <IndustryCard title="Energy and Infrastructure" desc="Safety protocols. Maintenance logs. Operational memory. Decades of maintenance decisions and safety incidents, searchable in seconds." />
         </div>
       </section>
 
-      {/* Developers */}
-      <section id="developers" className="bg-[#f0eaf5] py-24">
-        <div className="max-w-5xl mx-auto px-6">
-          <p className="text-sm font-medium text-[#8069af] tracking-wide uppercase mb-4 text-center">
-            For Developers
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1d1d1d] mb-4">
-            Replace your RAG pipeline with two API calls
-          </h2>
-          <p className="text-[#6b5f7a] text-center max-w-2xl mx-auto mb-14 font-light">
-            Stop building extraction, embedding, chunking, retrieval, and reranking from scratch.
-            Rabbit handles the entire memory stack. You handle the product.
-          </p>
-          <div className="grid sm:grid-cols-2 gap-5">
-            <FeatureCard title="Python SDK" desc="pip install rabbit-memory. Three methods: remember(), ask(), check(). Full type hints." />
-            <FeatureCard title="JavaScript SDK" desc="npm install @reattend/rabbit. TypeScript-first. Same interface as Python." />
-            <FeatureCard title="10 File Types" desc="Text, audio, PDF, Office docs, images, markdown, HTML, email, calendar, code. One endpoint handles all." />
-            <FeatureCard title="SSE Streaming" desc="Stream answers token by token. Pipeline events (intent, expand, retrieve) sent as the query progresses." />
-            <FeatureCard title="Reasoning Mode" desc="Toggle deep analysis for complex questions. Rabbit handles retrieval, a 70B model handles reasoning. Seamless." />
-            <FeatureCard title="Training Flywheel" desc="thumbs_up() and thumbs_down() feed the training pipeline. Your usage makes the model better. Monthly." />
-          </div>
+      {/* Deploy */}
+      <section className="max-w-5xl mx-auto px-6 pb-24">
+        <p className="text-xs font-semibold text-[#8069af] tracking-widest uppercase mb-4 text-center">
+          Deploy and Forget
+        </p>
+        <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1d1d1d] mb-4">
+          Reattend + Rabbit. One box. Complete memory infrastructure.
+        </h2>
+        <p className="text-[#6b5f7a] text-center max-w-2xl mx-auto mb-14 font-light">
+          For organizations that want to solve amnesia without building anything. We ship Reattend
+          bundled with Rabbit as a single deployable unit. Install it on your server, connect your
+          tools, and watch your organizational knowledge form itself.
+        </p>
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+          <DeployItem title="Rabbit" desc="Memory intelligence engine" />
+          <DeployItem title="Reattend Platform" desc="Capture, store, search, recall" />
+          <DeployItem title="Integrations" desc="Slack, Gmail, Calendar, custom" />
+          <DeployItem title="Your infrastructure" desc="Nothing leaves your network" />
         </div>
-      </section>
-
-      {/* Individuals */}
-      <section id="individuals" className="py-24">
-        <div className="max-w-5xl mx-auto px-6">
-          <p className="text-sm font-medium text-[#8069af] tracking-wide uppercase mb-4 text-center">
-            For Individuals
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1d1d1d] mb-4">
-            Your personal memory, searchable and intelligent
-          </h2>
-          <p className="text-[#6b5f7a] text-center max-w-2xl mx-auto mb-14 font-light">
-            Sync your Obsidian vault, upload meeting recordings, save articles.
-            Ask questions across everything you've ever captured.
-          </p>
-          <div className="grid sm:grid-cols-3 gap-5">
-            <FeatureCard title="Obsidian Sync" desc="rabbit sync --obsidian ~/vault. Your notes become queryable. Wiki-links preserved. Missing connections discovered." />
-            <FeatureCard title="Meeting Memory" desc="Upload recordings. Rabbit transcribes, extracts decisions and action items, links to previous meetings on the same topic." />
-            <FeatureCard title="Self-Healing Knowledge" desc="Contradictions detected. Stale action items flagged. Knowledge gaps surfaced. Your second brain maintains itself." />
-          </div>
-        </div>
-      </section>
-
-      {/* Future of Work */}
-      <section id="future" className="bg-[#f0eaf5] py-24">
-        <div className="max-w-5xl mx-auto px-6">
-          <p className="text-sm font-medium text-[#8069af] tracking-wide uppercase mb-4 text-center">
-            Future of Work
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1d1d1d] mb-4">
-            Every AI system has amnesia. We&apos;re fixing that.
-          </h2>
-          <p className="text-[#6b5f7a] text-center max-w-2xl mx-auto mb-6 font-light">
-            Organizations make thousands of decisions every month. Most are forgotten within weeks.
-            The knowledge walks out the door when people leave. Institutional memory degrades with every
-            team change, every quarter, every year.
-          </p>
-          <p className="text-[#6b5f7a] text-center max-w-2xl mx-auto mb-6 font-light">
-            Rabbit is the infrastructure layer that captures, understands, links, and preserves
-            organizational knowledge. Not as static documents. As a living, queryable, self-healing
-            knowledge system that gets smarter with every interaction.
-          </p>
-          <p className="text-[#1d1d1d] text-center max-w-2xl mx-auto font-medium">
-            We believe memory is the most important unsolved problem in AI.
-            We&apos;re building the solution.
-          </p>
-        </div>
+        <p className="text-center text-sm text-[#8069af] font-medium">
+          Deploy once. Knowledge forms automatically.
+        </p>
       </section>
 
       {/* CTA */}
-      <section className="py-24 text-center">
+      <section className="py-20 text-center">
         <h2 className="text-3xl sm:text-4xl font-bold text-[#1d1d1d] mb-4">
-          Start building with memory
+          Give your organization a memory
         </h2>
-        <p className="text-[#6b5f7a] mb-10 font-light">
-          Free tier. No credit card. 1,000 calls per month.
+        <p className="text-[#6b5f7a] mb-8 font-light">
+          Join the private beta. Limited API access available now.
         </p>
-        <div className="flex gap-4 justify-center">
+        <div className="flex gap-3 justify-center items-center flex-wrap max-w-md mx-auto">
+          <input
+            type="email"
+            placeholder="you@company.com"
+            className="flex-1 min-w-[200px] bg-white border border-[#d4cade] rounded-xl px-4 py-3 text-[#1d1d1d] placeholder-[#a89bb5] focus:outline-none focus:border-[#8069af] text-sm"
+          />
           <Link
             href="/login"
-            className="bg-[#1d1d1d] text-white px-8 py-3.5 rounded-xl font-medium hover:bg-[#333] transition"
+            className="bg-[#8069af] text-white px-6 py-3 rounded-xl font-medium hover:bg-[#6d5a96] transition text-sm whitespace-nowrap"
           >
-            Get API key
-          </Link>
-          <Link
-            href="/login"
-            className="bg-[#c2a6cf] text-[#1d1d1d] px-8 py-3.5 rounded-xl font-medium hover:bg-[#b396c2] transition"
-          >
-            Read documentation
+            Join Waitlist
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#c2a6cf] px-6 py-10">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-[#6b5f7a]">
-          <div>
-            <span className="font-bold text-[#1d1d1d]">rabbit</span>
-            <span className="ml-2">by Reattend</span>
+      <footer className="bg-[#1d1d1d] text-white px-6 py-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-14">
+            {/* Brand */}
+            <div className="col-span-2 md:col-span-1">
+              <div className="flex items-center gap-2 mb-4">
+                <Image src="/logo.png" alt="Rabbit" width={24} height={24} className="brightness-0 invert" />
+                <span className="font-bold text-white">Rabbit</span>
+              </div>
+              <p className="text-sm text-neutral-400 leading-relaxed">
+                AI research and products that put organizational memory at the core. Built by Reattend.
+              </p>
+            </div>
+            {/* Links */}
+            <FooterColumn title="Research" links={["Overview", "Training Log", "Benchmarks", "Data Ethics"]} />
+            <FooterColumn title="Product" links={["Model", "Signals", "Sandbox", "API Docs"]} />
+            <FooterColumn title="Enterprise" links={["Overview", "Deployment", "Compliance", "Contact Sales"]} />
+            <FooterColumn title="Company" links={["Reattend Platform", "Future of Work", "Contact"]} />
           </div>
-          <div className="flex gap-8">
-            <Link href="/login" className="hover:text-[#1d1d1d] transition">Documentation</Link>
-            <Link href="/login" className="hover:text-[#1d1d1d] transition">API Reference</Link>
-            <a href="https://reattend.ai" className="hover:text-[#1d1d1d] transition">Reattend</a>
+          <div className="border-t border-neutral-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+            <span>2026 Reattend, Inc. All rights reserved.</span>
+            <div className="flex gap-6">
+              <a href="#" className="hover:text-white transition">Privacy</a>
+              <a href="#" className="hover:text-white transition">Terms</a>
+            </div>
           </div>
         </div>
       </footer>
@@ -306,59 +260,81 @@ export default function Home() {
   );
 }
 
-function SignalCard({
-  title,
-  subtitle,
-  description,
-  signals,
-}: {
-  title: string;
-  subtitle: string;
-  description: string;
-  signals: string[];
-}) {
+function Stat({ number, label }: { number: string; label: string }) {
   return (
-    <div className="bg-[#f0eaf5] border border-[#d8cfe6] rounded-2xl p-7">
-      <p className="text-xs font-mono text-[#8069af] mb-2">{subtitle}</p>
-      <h3 className="text-lg font-semibold text-[#1d1d1d] mb-3">{title}</h3>
-      <p className="text-[#6b5f7a] text-sm leading-relaxed mb-5 font-light">{description}</p>
-      <div className="flex flex-wrap gap-2">
-        {signals.map((s) => (
-          <span
-            key={s}
-            className="text-xs font-mono bg-[#e5def1] text-[#8069af] px-2.5 py-1 rounded-lg border border-[#c2a6cf]"
-          >
-            {s}
-          </span>
-        ))}
-      </div>
+    <div className="text-center">
+      <p className="text-3xl font-bold text-[#8069af]">{number}</p>
+      <p className="text-sm text-[#6b5f7a] mt-1">{label}</p>
     </div>
   );
 }
 
-function FeatureCard({ title, desc }: { title: string; desc: string }) {
+function ProblemStat({ number, label }: { number: string; label: string }) {
   return (
-    <div className="bg-white/50 border border-[#d8cfe6] rounded-2xl p-6 hover:border-[#8069af] transition">
+    <div className="bg-white/60 border border-[#d4cade] rounded-2xl p-5 text-center">
+      <p className="text-2xl font-bold text-[#1d1d1d]">{number}</p>
+      <p className="text-xs text-[#6b5f7a] mt-1 leading-relaxed">{label}</p>
+    </div>
+  );
+}
+
+function ProblemCard({ title, desc }: { title: string; desc: string }) {
+  return (
+    <div className="bg-white/40 border border-[#d4cade] rounded-2xl p-6">
+      <h3 className="font-semibold text-[#1d1d1d] mb-2 text-[15px]">{title}</h3>
+      <p className="text-sm text-[#6b5f7a] leading-relaxed font-light">{desc}</p>
+    </div>
+  );
+}
+
+function PipelineStep({ step, title, desc }: { step: string; title: string; desc: string }) {
+  return (
+    <div className="bg-white/60 border border-[#d4cade] rounded-2xl p-5 text-center">
+      <span className="inline-block w-8 h-8 rounded-full bg-[#8069af] text-white text-sm font-semibold leading-8 mb-3">{step}</span>
+      <h3 className="font-semibold text-[#1d1d1d] text-sm mb-1">{title}</h3>
+      <p className="text-xs text-[#6b5f7a] font-light">{desc}</p>
+    </div>
+  );
+}
+
+function Signal({ name, tag }: { name: string; tag: string }) {
+  return (
+    <div className="bg-white/50 border border-[#d4cade] rounded-xl px-4 py-3">
+      <p className="font-medium text-[#1d1d1d] text-sm">{name}</p>
+      <p className="text-[10px] font-mono text-[#8069af] mt-0.5">[{tag}]</p>
+    </div>
+  );
+}
+
+function IndustryCard({ title, desc }: { title: string; desc: string }) {
+  return (
+    <div className="bg-white/40 border border-[#d4cade] rounded-2xl p-7">
       <h3 className="font-semibold text-[#1d1d1d] mb-2">{title}</h3>
       <p className="text-sm text-[#6b5f7a] leading-relaxed font-light">{desc}</p>
     </div>
   );
 }
 
-function ResearchCard({
-  number,
-  label,
-  detail,
-}: {
-  number: string;
-  label: string;
-  detail: string;
-}) {
+function DeployItem({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="bg-white/50 border border-[#d8cfe6] rounded-2xl p-7 text-center">
-      <p className="text-4xl font-bold text-[#8069af] mb-1">{number}</p>
-      <p className="text-sm font-medium text-[#1d1d1d] mb-3">{label}</p>
-      <p className="text-sm text-[#6b5f7a] leading-relaxed font-light">{detail}</p>
+    <div className="bg-white/50 border border-[#d4cade] rounded-xl p-5 text-center">
+      <h3 className="font-semibold text-[#1d1d1d] text-sm mb-1">{title}</h3>
+      <p className="text-xs text-[#6b5f7a] font-light">{desc}</p>
+    </div>
+  );
+}
+
+function FooterColumn({ title, links }: { title: string; links: string[] }) {
+  return (
+    <div>
+      <h4 className="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-4">{title}</h4>
+      <ul className="space-y-2.5">
+        {links.map((link) => (
+          <li key={link}>
+            <a href="#" className="text-sm text-neutral-400 hover:text-white transition">{link}</a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
