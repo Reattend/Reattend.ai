@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #e5def1;
+  --foreground: #1d1d1d;
+  --primary: #8069af;
+  --primary-light: #c2a6cf;
+  --surface: #f0eaf5;
+  --surface-dark: #d8cfe6;
+  --border: #c2a6cf;
+  --muted: #6b5f7a;
 }
 
 @theme inline {
@@ -20,4 +26,9 @@ body {
 
 code, pre {
   font-family: var(--font-mono), monospace;
+}
+
+::selection {
+  background: var(--primary-light);
+  color: var(--foreground);
 }

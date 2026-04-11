@@ -37,17 +37,17 @@ export default function GenerateKeyButton() {
     return (
       <div>
         <div className="flex items-center gap-2 mb-3">
-          <code className="flex-1 bg-neutral-800 rounded-lg px-4 py-3 font-mono text-sm text-green-400 break-all">
+          <code className="flex-1 bg-[#1d1d1d] text-[#a8d8a8] rounded-xl px-4 py-3 font-mono text-sm break-all">
             {key}
           </code>
           <button
             onClick={copyKey}
-            className="shrink-0 bg-neutral-800 hover:bg-neutral-700 px-4 py-3 rounded-lg text-sm transition"
+            className="shrink-0 bg-[#8069af] text-white hover:bg-[#6d5a96] px-4 py-3 rounded-xl text-sm font-medium transition"
           >
-            {copied ? "Copied!" : "Copy"}
+            {copied ? "Copied" : "Copy"}
           </button>
         </div>
-        <p className="text-amber-400 text-xs">
+        <p className="text-[#8069af] text-xs font-medium">
           Save this key now. It will not be shown again.
         </p>
       </div>
@@ -59,11 +59,11 @@ export default function GenerateKeyButton() {
       <button
         onClick={generateKey}
         disabled={loading}
-        className="bg-white text-black px-6 py-2.5 rounded-lg font-medium hover:bg-neutral-200 transition disabled:opacity-50 text-sm"
+        className="bg-[#1d1d1d] text-white px-6 py-2.5 rounded-xl font-medium hover:bg-[#333] transition disabled:opacity-50 text-sm"
       >
-        {loading ? "Generating..." : "Generate Test Key"}
+        {loading ? "Generating..." : "+ Create new secret key"}
       </button>
-      {error && <p className="mt-2 text-red-400 text-xs">{error}</p>}
+      {error && <p className="mt-2 text-red-600 text-xs">{error}</p>}
     </div>
   );
 }
