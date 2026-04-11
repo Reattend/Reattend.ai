@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Footer from "@/app/components/footer";
 
 export default function DevelopersPage() {
   return (
@@ -188,10 +189,4 @@ function Header({ current }: { current: string }) {
   const links = ["Home", "Research", "Product", "Enterprise", "Developers", "Individuals", "Future of Work"];
   const hrefs: Record<string, string> = { Home: "/", Research: "/research", Product: "/product", Enterprise: "/enterprise", Developers: "/developers", Individuals: "/individuals", "Future of Work": "/future" };
   return (<header className="px-6 py-5 flex items-center justify-between max-w-7xl mx-auto w-full"><div className="flex items-center gap-10"><Link href="/" className="flex items-center gap-2"><Image src="/logo.png" alt="Rabbit" width={28} height={28} /><span className="text-lg font-bold tracking-tight text-[#1d1d1d]">rabbit</span></Link><nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium text-[#6b5f7a]">{links.map(l => <Link key={l} href={hrefs[l]} className={l === current ? "text-[#1d1d1d]" : "hover:text-[#1d1d1d] transition"}>{l}</Link>)}</nav></div><div className="flex items-center gap-4 text-[13px]"><Link href="/login" className="bg-[#6d5a96] text-white px-5 py-2.5 rounded-xl font-medium hover:bg-[#5c4a82] transition">Get API</Link><a href="https://reattend.ai" className="bg-[#1d1d1d] text-white px-5 py-2.5 rounded-xl font-medium hover:bg-[#333] transition">Reattend</a></div></header>);
-}
-function Footer() {
-  return (<footer className="bg-[#1d1d1d] text-white px-6 py-16"><div className="max-w-7xl mx-auto"><div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-14"><div className="col-span-2 md:col-span-1"><div className="flex items-center gap-2 mb-4"><Image src="/logo.png" alt="Rabbit" width={24} height={24} className="brightness-0 invert" /><span className="font-bold">Rabbit</span></div><p className="text-sm text-neutral-400 leading-relaxed">AI research and products that put organizational memory at the core. Built by Reattend.</p></div><FCol title="Research" links={["Overview", "Training Log", "Benchmarks", "Data Ethics"]} /><FCol title="Product" links={["Model", "Signals", "Sandbox", "API Docs"]} /><FCol title="Enterprise" links={["Overview", "Deployment", "Compliance", "Contact Sales"]} /><FCol title="Company" links={["Reattend Platform", "Future of Work", "Contact"]} /></div><div className="border-t border-neutral-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500"><span>2026 Reattend, Inc. All rights reserved.</span><div className="flex gap-6"><a href="#" className="hover:text-white transition">Privacy</a><a href="#" className="hover:text-white transition">Terms</a></div></div></div></footer>);
-}
-function FCol({ title, links }: { title: string; links: string[] }) {
-  return (<div><h4 className="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-4">{title}</h4><ul className="space-y-2.5">{links.map(l => <li key={l}><a href="#" className="text-sm text-neutral-400 hover:text-white transition">{l}</a></li>)}</ul></div>);
 }
