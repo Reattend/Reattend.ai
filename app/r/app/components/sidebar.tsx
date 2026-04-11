@@ -5,15 +5,15 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 const navItems = [
-  { name: "Explore", href: "/r/app", icon: "compass" },
-  { name: "Projects", href: "/r/app/projects", icon: "folder" },
-  { name: "Memories", href: "/r/app/memories", icon: "brain" },
-  { name: "Board", href: "/r/app/board", icon: "grid" },
+  { name: "Explore", href: "/app", icon: "compass" },
+  { name: "Projects", href: "/app/projects", icon: "folder" },
+  { name: "Memories", href: "/app/memories", icon: "brain" },
+  { name: "Board", href: "/app/board", icon: "grid" },
 ];
 
 const bottomItems = [
-  { name: "Integrations", href: "/r/app/integrations", icon: "plug", badge: "99+" },
-  { name: "Settings", href: "/r/app/settings", icon: "gear" },
+  { name: "Integrations", href: "/app/integrations", icon: "plug", badge: "99+" },
+  { name: "Settings", href: "/app/settings", icon: "gear" },
 ];
 
 const icons: Record<string, React.ReactNode> = {
@@ -32,7 +32,7 @@ export default function ReattendSidebar({ email }: { email: string }) {
 
   async function handleLogout() {
     await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/r");
+    router.push("/");
     router.refresh();
   }
 
@@ -40,15 +40,15 @@ export default function ReattendSidebar({ email }: { email: string }) {
     <aside className="w-60 border-r border-gray-200 flex flex-col bg-white">
       {/* Top */}
       <div className="px-4 py-4 border-b border-gray-200">
-        <Link href="/r/app" className="text-lg font-bold tracking-tight text-[#111827]">Reattend</Link>
+        <Link href="/app" className="text-lg font-bold tracking-tight text-[#111827]">Reattend</Link>
       </div>
 
       {/* New Chat + Memories */}
       <div className="px-3 py-3 space-y-1.5">
-        <Link href="/r/app" className="flex items-center justify-center gap-2 bg-[#111827] text-white py-2.5 rounded-lg text-sm font-medium hover:bg-black transition">
+        <Link href="/app" className="flex items-center justify-center gap-2 bg-[#111827] text-white py-2.5 rounded-lg text-sm font-medium hover:bg-black transition">
           + New Chat
         </Link>
-        <Link href="/r/app/memories/new" className="flex items-center justify-center gap-2 border border-gray-300 text-[#111827] py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
+        <Link href="/app/memories/new" className="flex items-center justify-center gap-2 border border-gray-300 text-[#111827] py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
           + Memories
         </Link>
       </div>
@@ -57,7 +57,7 @@ export default function ReattendSidebar({ email }: { email: string }) {
       <nav className="flex-1 px-3 py-2 overflow-y-auto">
         <ul className="space-y-0.5">
           {navItems.map(item => {
-            const isActive = pathname === item.href || (item.href !== "/r/app" && pathname.startsWith(item.href));
+            const isActive = pathname === item.href || (item.href !== "/app" && pathname.startsWith(item.href));
             return (
               <li key={item.href}>
                 <Link

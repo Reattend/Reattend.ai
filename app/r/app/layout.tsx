@@ -8,7 +8,7 @@ export default async function ReattendAppLayout({
   children: React.ReactNode;
 }) {
   const email = await getUser();
-  if (!email) redirect("/r/login");
+  if (!email) redirect("/login");
 
   return (
     <div className="flex h-screen bg-white">

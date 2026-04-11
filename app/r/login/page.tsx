@@ -46,7 +46,7 @@ export default function ReattendLoginPage() {
         const data = await res.json();
         throw new Error(data.error || "Invalid code");
       }
-      router.push("/r/app");
+      router.push("/app");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -57,7 +57,7 @@ export default function ReattendLoginPage() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
-        <Link href="/r" className="text-xl font-bold tracking-tight block text-center mb-10 text-[#111827]">
+        <Link href="/" className="text-xl font-bold tracking-tight block text-center mb-10 text-[#111827]">
           Reattend
         </Link>
 

@@ -6,7 +6,7 @@ export default function ReattendHome() {
       {/* Header */}
       <header className="border-b border-gray-200 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto w-full">
         <div className="flex items-center gap-8">
-          <Link href="/r" className="text-xl font-bold tracking-tight">Reattend</Link>
+          <Link href="/" className="text-xl font-bold tracking-tight">Reattend</Link>
           <nav className="hidden md:flex items-center gap-6 text-sm text-gray-500">
             <a href="#features" className="hover:text-[#111827] transition">Features</a>
             <a href="#how" className="hover:text-[#111827] transition">How it works</a>
@@ -14,10 +14,10 @@ export default function ReattendHome() {
           </nav>
         </div>
         <div className="flex items-center gap-4 text-sm">
-          <Link href="/r/login" className="text-gray-500 hover:text-[#111827] transition font-medium">
+          <Link href="/login" className="text-gray-500 hover:text-[#111827] transition font-medium">
             Log in
           </Link>
-          <Link href="/r/login" className="bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:bg-black transition">
+          <Link href="/login" className="bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:bg-black transition">
             Get started free
           </Link>
         </div>
@@ -36,7 +36,7 @@ export default function ReattendHome() {
           Then answers any question across your entire history. With citations.
         </p>
         <div className="mt-10 flex gap-3 justify-center">
-          <Link href="/r/login" className="bg-[#111827] text-white px-7 py-3.5 rounded-lg font-medium hover:bg-black transition">
+          <Link href="/login" className="bg-[#111827] text-white px-7 py-3.5 rounded-lg font-medium hover:bg-black transition">
             Start for free
           </Link>
           <a href="#how" className="border border-gray-300 text-[#111827] px-7 py-3.5 rounded-lg font-medium hover:bg-gray-50 transition">
@@ -109,7 +109,7 @@ export default function ReattendHome() {
             period="forever"
             features={["500 memories", "20 asks per day", "3 projects", "Text + file upload"]}
             cta="Get started"
-            href="/r/login"
+            href="/login"
           />
           <PriceCard
             plan="Pro"
@@ -117,7 +117,7 @@ export default function ReattendHome() {
             period="/month"
             features={["Unlimited memories", "Unlimited asks", "Unlimited projects", "All integrations", "Team sharing", "Priority support"]}
             cta="Start free trial"
-            href="/r/login"
+            href="/login"
             featured
           />
           <PriceCard
@@ -135,7 +135,7 @@ export default function ReattendHome() {
       <section className="py-24 text-center">
         <h2 className="text-3xl font-bold mb-4">Start remembering</h2>
         <p className="text-gray-500 mb-8">Free forever. No credit card required.</p>
-        <Link href="/r/login" className="bg-[#111827] text-white px-8 py-3.5 rounded-lg font-medium hover:bg-black transition">
+        <Link href="/login" className="bg-[#111827] text-white px-8 py-3.5 rounded-lg font-medium hover:bg-black transition">
           Get started free
         </Link>
       </section>

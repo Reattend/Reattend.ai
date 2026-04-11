@@ -4,18 +4,24 @@ export function middleware(req: NextRequest) {
   const hostname = req.headers.get("host") || "";
   const pathname = req.nextUrl.pathname;
 
-  // reattend.ai domain → serve from /(reattend) route group
-  if (hostname.includes("reattend.ai") && !hostname.includes("rabbit.reattend.ai") && !hostname.includes("api.rabbit")) {
-    // Don't rewrite API routes or static assets
-    if (pathname.startsWith("/api/") || pathname.startsWith("/_next/") || pathname.startsWith("/logo") || pathname === "/favicon.ico") {
+  // reattend.ai domain (not rabbit.reattend.ai, not api.rabbit.reattend.ai)
+  const isReattend = hostname.includes("reattend.ai") && !hostname.includes("rabbit.reattend.ai") && !hostname.includes("api.rabbit");
+
+  if (isReattend) {
+    // Don't rewrite API routes, static assets, or already-prefixed routes
+    if (
+      pathname.startsWith("/api/") ||
+      pathname.startsWith("/_next/") ||
+      pathname.startsWith("/r/") ||
+      pathname.startsWith("/logo") ||
+      pathname === "/favicon.ico" ||
+      pathname === "/icon.png" ||
+      pathname === "/apple-icon.png"
+    ) {
       return NextResponse.next();
     }
 
-    // Rewrite to the (reattend) route group
-    // / → /(reattend)/page.tsx
-    // /login → /(reattend)/login/page.tsx
-    // /app → /(reattend)/app/page.tsx
-    // /app/anything → /(reattend)/app/anything/page.tsx
+    // Rewrite: reattend.ai/ → /r, reattend.ai/login → /r/login, reattend.ai/app → /r/app
     const url = req.nextUrl.clone();
     url.pathname = `/r${pathname === "/" ? "" : pathname}`;
     return NextResponse.rewrite(url);
