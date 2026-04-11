@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth";
 import ReattendSidebar from "./components/sidebar";
+import QuickCapture from "./components/quick-capture";
 
 export default async function ReattendAppLayout({
   children,
@@ -16,6 +17,7 @@ export default async function ReattendAppLayout({
       <main className="flex-1 overflow-y-auto">
         {children}
       </main>
+      <QuickCapture />
     </div>
   );
 }
