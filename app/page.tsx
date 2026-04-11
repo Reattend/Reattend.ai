@@ -17,14 +17,15 @@ export default function Home() {
             <Link href="/product" className="hover:text-[#1d1d1d] transition">Product</Link>
             <Link href="/enterprise" className="hover:text-[#1d1d1d] transition">Enterprise</Link>
             <Link href="/developers" className="hover:text-[#1d1d1d] transition">Developers</Link>
+            <Link href="/individuals" className="hover:text-[#1d1d1d] transition">Individuals</Link>
             <Link href="/future" className="hover:text-[#1d1d1d] transition">Future of Work</Link>
           </nav>
         </div>
-        <div className="flex items-center gap-5 text-[13px]">
-          <Link href="/login" className="text-[#6b5f7a] hover:text-[#1d1d1d] font-medium transition">
-            API access
+        <div className="flex items-center gap-4 text-[13px]">
+          <Link href="/login" className="bg-[#6d5a96] text-white px-5 py-2.5 rounded-xl font-medium hover:bg-[#5c4a82] transition">
+            Get API
           </Link>
-          <a href="https://reattend.ai" className="text-[#6b5f7a] hover:text-[#1d1d1d] font-medium transition">
+          <a href="https://reattend.ai" className="bg-[#1d1d1d] text-white px-5 py-2.5 rounded-xl font-medium hover:bg-[#333] transition">
             Reattend
           </a>
         </div>
