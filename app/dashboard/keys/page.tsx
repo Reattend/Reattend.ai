@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ApiKey {
   name: string;
-  key: string;
+  keyPreview: string;
+  tier: string;
   created: string;
   lastUsed: string;
 }
@@ -13,23 +14,41 @@ export default function KeysPage() {
   const [keys, setKeys] = useState<ApiKey[]>([]);
   const [showCreate, setShowCreate] = useState(false);
   const [newKeyName, setNewKeyName] = useState("");
+  const [newKeyTier, setNewKeyTier] = useState("test");
   const [loading, setLoading] = useState(false);
   const [newlyCreatedKey, setNewlyCreatedKey] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
+
+  // Load keys from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("rabbit_keys");
+    if (saved) {
+      try { setKeys(JSON.parse(saved)); } catch { /* ignore */ }
+    }
+  }, []);
+
+  // Save keys to localStorage when they change
+  useEffect(() => {
+    if (keys.length > 0) {
+      localStorage.setItem("rabbit_keys", JSON.stringify(keys));
+    }
+  }, [keys]);
 
   async function createKey() {
     if (!newKeyName.trim()) return;
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/keys/generate", { method: "POST" });
+      const res = await fetch(`/api/keys/generate?tier=${newKeyTier}`, { method: "POST" });
       if (!res.ok) throw new Error("Failed to generate key");
       const data = await res.json();
       const now = new Date().toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" });
+      const preview = data.key.slice(0, 12) + "..." + data.key.slice(-4);
       setKeys(prev => [...prev, {
         name: newKeyName.trim(),
-        key: data.key,
+        keyPreview: preview,
+        tier: newKeyTier,
         created: now,
         lastUsed: "Never",
       }]);
@@ -43,18 +62,30 @@ export default function KeysPage() {
     }
   }
 
-  function deleteKey(keyToDelete: string) {
-    setKeys(prev => prev.filter(k => k.key !== keyToDelete));
+  function deleteKey(preview: string) {
+    const updated = keys.filter(k => k.keyPreview !== preview);
+    setKeys(updated);
+    if (updated.length === 0) {
+      localStorage.removeItem("rabbit_keys");
+    }
   }
 
-  async function copyKey(key: string) {
-    await navigator.clipboard.writeText(key);
+  function copyToClipboard(text: string) {
+    // Fallback for non-HTTPS contexts
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text);
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+    }
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  }
-
-  function maskKey(key: string) {
-    return key.slice(0, 12) + "..." + key.slice(-4);
   }
 
   return (
@@ -63,7 +94,7 @@ export default function KeysPage() {
         <div>
           <h1 className="text-2xl font-bold text-[#1d1d1d]">API keys</h1>
           <p className="text-sm text-[#6b5f7a] font-light mt-1">
-            Your secret API keys are listed below. Do not share your API key with others, or expose it in the browser or other client-side code.
+            Your secret API keys are listed below. Do not share your API key with others or expose it in client-side code.
           </p>
         </div>
         <button
@@ -78,13 +109,15 @@ export default function KeysPage() {
       {newlyCreatedKey && (
         <div className="bg-[#8069af]/10 border border-[#8069af]/30 rounded-2xl p-5 mb-6">
           <p className="text-sm font-medium text-[#1d1d1d] mb-2">Save your API key</p>
-          <p className="text-xs text-[#6b5f7a] mb-3">Please save this secret key somewhere safe and accessible. For security reasons, you will not be able to view it again. If you lose this key, you will need to generate a new one.</p>
+          <p className="text-xs text-[#6b5f7a] mb-3">
+            Please save this secret key somewhere safe. For security reasons, you will not be able to view it again through your Rabbit account. If you lose this key, you will need to generate a new one.
+          </p>
           <div className="flex items-center gap-2">
-            <code className="flex-1 bg-[#1d1d1d] text-green-400 rounded-xl px-4 py-3 font-mono text-[13px] break-all">
+            <code className="flex-1 bg-[#1d1d1d] text-green-400 rounded-xl px-4 py-3 font-mono text-[13px] break-all select-all">
               {newlyCreatedKey}
             </code>
             <button
-              onClick={() => copyKey(newlyCreatedKey)}
+              onClick={() => copyToClipboard(newlyCreatedKey)}
               className="shrink-0 bg-[#8069af] text-white px-4 py-3 rounded-xl text-sm font-medium hover:bg-[#6d5a96] transition"
             >
               {copied ? "Copied" : "Copy"}
@@ -94,7 +127,7 @@ export default function KeysPage() {
             onClick={() => setNewlyCreatedKey(null)}
             className="text-xs text-[#8069af] mt-3 hover:underline"
           >
-            Dismiss
+            Done
           </button>
         </div>
       )}
@@ -108,13 +141,40 @@ export default function KeysPage() {
               <label className="text-sm text-[#6b5f7a] block mb-1.5">Name</label>
               <input
                 type="text"
-                placeholder="My test key"
+                placeholder="e.g. Production, Testing, My App"
                 value={newKeyName}
                 onChange={e => setNewKeyName(e.target.value)}
                 onKeyDown={e => e.key === "Enter" && newKeyName.trim() && createKey()}
                 className="w-full bg-white border border-[#d4cade] rounded-xl px-4 py-2.5 text-sm text-[#1d1d1d] placeholder-[#a89bb5] focus:outline-none focus:border-[#8069af]"
                 autoFocus
               />
+            </div>
+            <div className="mb-5">
+              <label className="text-sm text-[#6b5f7a] block mb-1.5">Tier</label>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setNewKeyTier("test")}
+                  className={`flex-1 py-2.5 rounded-xl text-sm font-medium border transition ${
+                    newKeyTier === "test"
+                      ? "bg-[#8069af]/10 border-[#8069af] text-[#8069af]"
+                      : "bg-white border-[#d4cade] text-[#6b5f7a] hover:border-[#8069af]"
+                  }`}
+                >
+                  Test
+                  <span className="block text-[10px] font-normal mt-0.5">100 calls/day</span>
+                </button>
+                <button
+                  onClick={() => setNewKeyTier("live")}
+                  className={`flex-1 py-2.5 rounded-xl text-sm font-medium border transition ${
+                    newKeyTier === "live"
+                      ? "bg-[#8069af]/10 border-[#8069af] text-[#8069af]"
+                      : "bg-white border-[#d4cade] text-[#6b5f7a] hover:border-[#8069af]"
+                  }`}
+                >
+                  Live
+                  <span className="block text-[10px] font-normal mt-0.5">10,000 calls/day</span>
+                </button>
+              </div>
             </div>
             <div className="flex gap-3 justify-end">
               <button onClick={() => setShowCreate(false)} className="px-4 py-2 text-sm text-[#6b5f7a] hover:text-[#1d1d1d] transition">Cancel</button>
@@ -137,29 +197,37 @@ export default function KeysPage() {
           <thead>
             <tr className="border-b border-[#d4cade]">
               <th className="text-left px-5 py-3.5 font-semibold text-[#6b5f7a] text-xs uppercase tracking-wider">Name</th>
+              <th className="text-left px-5 py-3.5 font-semibold text-[#6b5f7a] text-xs uppercase tracking-wider">Tier</th>
               <th className="text-left px-5 py-3.5 font-semibold text-[#6b5f7a] text-xs uppercase tracking-wider">Secret key</th>
               <th className="text-left px-5 py-3.5 font-semibold text-[#6b5f7a] text-xs uppercase tracking-wider">Created</th>
               <th className="text-left px-5 py-3.5 font-semibold text-[#6b5f7a] text-xs uppercase tracking-wider">Last used</th>
-              <th className="text-right px-5 py-3.5 font-semibold text-[#6b5f7a] text-xs uppercase tracking-wider"></th>
+              <th className="text-right px-5 py-3.5"></th>
             </tr>
           </thead>
           <tbody>
             {keys.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-5 py-10 text-center text-[#a89bb5] text-sm">
+                <td colSpan={6} className="px-5 py-10 text-center text-[#a89bb5] text-sm">
                   No API keys yet. Click &quot;Create new secret key&quot; to get started.
                 </td>
               </tr>
             ) : (
-              keys.map((k) => (
-                <tr key={k.key} className="border-b border-[#d4cade]/50 last:border-0 hover:bg-white/40 transition">
+              keys.map((k, i) => (
+                <tr key={i} className="border-b border-[#d4cade]/50 last:border-0 hover:bg-white/40 transition">
                   <td className="px-5 py-3.5 font-medium text-[#1d1d1d]">{k.name}</td>
-                  <td className="px-5 py-3.5 font-mono text-[13px] text-[#6b5f7a]">{maskKey(k.key)}</td>
+                  <td className="px-5 py-3.5">
+                    <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${
+                      k.tier === "live" ? "bg-green-100 text-green-700" : "bg-[#8069af]/10 text-[#8069af]"
+                    }`}>
+                      {k.tier}
+                    </span>
+                  </td>
+                  <td className="px-5 py-3.5 font-mono text-[13px] text-[#6b5f7a]">{k.keyPreview}</td>
                   <td className="px-5 py-3.5 text-[#6b5f7a]">{k.created}</td>
                   <td className="px-5 py-3.5 text-[#6b5f7a]">{k.lastUsed}</td>
                   <td className="px-5 py-3.5 text-right">
                     <button
-                      onClick={() => deleteKey(k.key)}
+                      onClick={() => deleteKey(k.keyPreview)}
                       className="text-red-400 hover:text-red-600 transition p-1"
                       title="Delete key"
                     >
@@ -174,10 +242,6 @@ export default function KeysPage() {
           </tbody>
         </table>
       </div>
-
-      <p className="text-xs text-[#a89bb5] mt-4">
-        View usage per API key on the <a href="/dashboard/usage" className="text-[#8069af] hover:underline">Usage page</a>.
-      </p>
     </div>
   );
 }

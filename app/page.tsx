@@ -1,8 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "@/app/components/footer";
+import { getUser } from "@/lib/auth";
 
-export default function Home() {
+export default async function Home() {
+  const email = await getUser();
   return (
     <main className="flex-1 bg-[#eee9f4]">
       {/* Header */}
@@ -23,8 +25,8 @@ export default function Home() {
           </nav>
         </div>
         <div className="flex items-center gap-4 text-[13px]">
-          <Link href="/login" className="bg-[#6d5a96] text-white px-5 py-2.5 rounded-xl font-medium hover:bg-[#5c4a82] transition">
-            Get API
+          <Link href={email ? "/dashboard" : "/login"} className="bg-[#6d5a96] text-white px-5 py-2.5 rounded-xl font-medium hover:bg-[#5c4a82] transition">
+            {email ? "Dashboard" : "Get API"}
           </Link>
           <a href="https://reattend.ai" className="bg-[#1d1d1d] text-white px-5 py-2.5 rounded-xl font-medium hover:bg-[#333] transition">
             Reattend

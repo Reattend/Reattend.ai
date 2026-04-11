@@ -11,7 +11,8 @@ export async function POST(req: NextRequest) {
 
   // Call the Rabbit API to generate a key
   try {
-    const resp = await fetch(`${RABBIT_API_URL}/v1/keys/generate?tier=test`, {
+    const tier = req.nextUrl.searchParams.get("tier") || "test";
+    const resp = await fetch(`${RABBIT_API_URL}/v1/keys/generate?tier=${tier}`, {
       method: "POST",
     });
 
